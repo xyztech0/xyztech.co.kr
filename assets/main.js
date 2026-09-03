@@ -1,15 +1,15 @@
 const page = document.body.dataset.page || "home";
 
 const navItems = [
-  ["company", "COMPANY", "회사소개", "company.html?v=20260903-8"],
-  ["services", "SERVICES", "사업분야", "services.html?v=20260903-8"],
-  ["capabilities", "CAPABILITIES", "설계역량", "capabilities.html?v=20260903-8"],
-  ["projects", "PROJECTS", "프로젝트", "projects.html?v=20260903-8"],
-  ["contact", "CONTACT", "문의", "contact.html?v=20260903-8"]
+  ["company", "COMPANY", "회사소개", "company.html?v=20260903-11"],
+  ["services", "SERVICES", "사업분야", "services.html?v=20260903-11"],
+  ["capabilities", "CAPABILITIES", "설계역량", "capabilities.html?v=20260903-11"],
+  ["projects", "PROJECTS", "프로젝트", "projects.html?v=20260903-11"],
+  ["contact", "CONTACT", "문의", "contact.html?v=20260903-11"]
 ];
 
 const brand = `
-  <a class="brand" href="index.html?v=20260903-8" aria-label="XYZTECH 홈">
+  <a class="brand" href="index.html?v=20260903-11" aria-label="XYZTECH 홈">
     <span class="brand-logo" aria-hidden="true"><strong>XYZ</strong><small>TECH</small></span>
   </a>`;
 
@@ -23,7 +23,7 @@ if (header) {
         <nav class="desktop-nav" aria-label="주 메뉴">
           ${navItems.map(([key, en, ko, href]) => `<a class="nav-link ${page === key ? "active" : ""}" href="${href}">${en}<span>${ko}</span></a>`).join("")}
         </nav>
-        <a class="header-cta" href="contact.html?v=20260903-8">설계 프로젝트 문의</a>
+        <a class="header-cta" href="contact.html?v=20260903-11">프로젝트·작업 문의</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span></button>
       </div>
     </header>
@@ -39,7 +39,7 @@ if (footer) {
       <div class="container footer-main">
         <div class="footer-brand">
           ${brand}
-          <p>생산공정과 작업환경을 이해하고, 제작성과 정밀도를 고려한 자동화설비 및 차체 용접지그를 설계합니다.</p>
+          <p>생산공정과 작업환경을 이해하는 설계 엔지니어링과 샌드블라스팅 표면처리 작업을 제공합니다.</p>
         </div>
         <nav class="footer-nav" aria-label="하단 메뉴">
           ${navItems.map(([, en, ko, href]) => `<a href="${href}">${en} · ${ko}</a>`).join("")}
@@ -48,7 +48,8 @@ if (footer) {
       </div>
       <div class="container footer-meta">
         <p>상호 엑스와이지(xyz)테크 · 대표 박재훈 · 사업자등록번호 498-52-00813</p>
-        <p>경기도 안산시 단원구 풍전로 37-9, 301동 235호 · E-mail ceo@xyztech.co.kr</p>
+        <p>설계사무소 · 경기도 안산시 단원구 풍전로 37-9, 301동 235호</p>
+        <p>샌드블라스팅 작업장 · 경기도 안산시 단원구 산단로 326, 20동 117호 · E-mail ceo@xyztech.co.kr</p>
         <p>© <span data-year></span> XYZTECH. All rights reserved.</p>
       </div>
     </footer>`;
@@ -99,7 +100,7 @@ if (inquiryForm) {
     event.preventDefault();
     if (!inquiryForm.reportValidity()) return;
     const data = new FormData(inquiryForm);
-    const subject = `[XYZTECH 설계문의] ${data.get("company")} / ${data.get("service")}`;
+    const subject = `[XYZTECH 사업문의] ${data.get("company")} / ${data.get("service")}`;
     const body = [
       `회사명: ${data.get("company")}`,
       `담당자: ${data.get("name")}`,
@@ -107,9 +108,9 @@ if (inquiryForm) {
       `회신 이메일: ${data.get("email")}`,
       `문의 분야: ${data.get("service")}`,
       `희망 일정: ${data.get("schedule") || "미정"}`,
-      `CAD/데이터: ${data.get("data") || "미정"}`,
+      `보유 자료·대상물 정보: ${data.get("data") || "미정"}`,
       "",
-      "프로젝트 내용:",
+      "문의 내용:",
       data.get("message")
     ].join("\n");
     document.querySelector(".form-status").textContent = "메일 프로그램을 열고 있습니다. 첨부파일은 열린 메일에 추가해주세요.";
