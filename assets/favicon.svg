@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="XYZTECH XYZ logo">
   <rect width="64" height="64" rx="12" fill="#071522"/>
-  <path d="M14 15h12l7 11 7-11h11L39 32l12 17H39l-7-11-7 11H14l12-17z" fill="#00aeef"/>
-  <circle cx="32" cy="32" r="3" fill="#fff"/>
+  <path d="M32 4 60 32 32 60 4 32Z" fill="none" stroke="#058dcc" stroke-width="2"/>
+  <path d="M8 17h5l4 7 4-7h5l-7 11 7 12h-5l-4-8-4 8H8l7-12Zm17 0h5l4 8 4-8h5l-7 13v10h-5V30Zm17 0h15v4l-8 14h8v5H41v-4l8-14h-7Z" fill="#00aeef"/>
 </svg>
