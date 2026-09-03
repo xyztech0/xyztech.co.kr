@@ -127,6 +127,7 @@ section { position: relative; }
 .section-dark { background: var(--navy-900); color: var(--white); }
 .section-soft { background: var(--surface); }
 .section-head { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; align-items: end; margin-bottom: 52px; }
+.section-head-single { grid-template-columns: 1fr; }
 .section-kicker { color: var(--blue-strong); font-size: 13px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 .section-title { margin: 10px 0 0; font-size: clamp(32px, 4vw, 52px); line-height: 1.18; letter-spacing: -.035em; }
 .section-lead { margin: 0; color: var(--muted); font-size: 18px; }
