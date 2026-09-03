@@ -10,8 +10,7 @@ const navItems = [
 
 const brand = `
   <a class="brand" href="index.html" aria-label="XYZTECH 홈">
-    <span class="brand-mark" aria-hidden="true">XYZ</span>
-    <span>XYZTECH<small>INDUSTRIAL ENGINEERING</small></span>
+    <span class="brand-logo" aria-hidden="true"><strong>XYZ</strong><small>TECH</small></span>
   </a>`;
 
 const header = document.querySelector("[data-site-header]");
