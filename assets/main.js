@@ -1,15 +1,15 @@
 const page = document.body.dataset.page || "home";
 
 const navItems = [
-  ["company", "COMPANY", "회사소개", "company.html?v=20260903-11"],
-  ["services", "SERVICES", "사업분야", "services.html?v=20260903-11"],
-  ["capabilities", "CAPABILITIES", "설계역량", "capabilities.html?v=20260903-11"],
-  ["projects", "PROJECTS", "프로젝트", "projects.html?v=20260903-11"],
-  ["contact", "CONTACT", "문의", "contact.html?v=20260903-11"]
+  ["company", "COMPANY", "회사소개", "company.html?v=20260904-14"],
+  ["services", "SERVICES", "사업분야", "services.html?v=20260904-14"],
+  ["capabilities", "CAPABILITIES", "설계역량", "capabilities.html?v=20260904-14"],
+  ["projects", "PROJECTS", "프로젝트", "projects.html?v=20260904-14"],
+  ["contact", "CONTACT", "문의", "contact.html?v=20260904-14"]
 ];
 
 const brand = `
-  <a class="brand" href="index.html?v=20260903-11" aria-label="XYZTECH 홈">
+  <a class="brand" href="index.html?v=20260904-14" aria-label="XYZTECH 홈">
     <span class="brand-logo" aria-hidden="true"><strong>XYZ</strong><small>TECH</small></span>
   </a>`;
 
@@ -23,7 +23,7 @@ if (header) {
         <nav class="desktop-nav" aria-label="주 메뉴">
           ${navItems.map(([key, en, ko, href]) => `<a class="nav-link ${page === key ? "active" : ""}" href="${href}">${en}<span>${ko}</span></a>`).join("")}
         </nav>
-        <a class="header-cta" href="contact.html?v=20260903-11">프로젝트·작업 문의</a>
+        <a class="header-cta" href="contact.html?v=20260904-14">프로젝트·작업 문의</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span></button>
       </div>
     </header>
