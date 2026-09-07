@@ -47,7 +47,7 @@ a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offse
 .brand-logo{display:inline-flex;width:90px;flex-direction:column;align-items:stretch;line-height:1}
 .brand-logo strong,.brand-logo small{display:flex;width:100%;justify-content:space-between;align-items:center}
 .brand-logo strong{font-family:"Arial Black",Arial,sans-serif;font-size:36px;font-weight:900;line-height:.79;letter-spacing:0}
-.brand-logo small{margin-top:8px;font-family:Arial,sans-serif;font-size:12px;font-weight:800;letter-spacing:0;line-height:1}
+.brand-logo small{margin-top:4px;font-family:Arial,sans-serif;font-size:16px;font-weight:800;letter-spacing:0;line-height:1}
 .desktop-nav{display:flex;align-items:stretch;align-self:stretch;gap:45px}
 .nav-item{display:flex;align-items:stretch}
 .nav-link{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:116px;padding:0 18px;border:0;background:none;color:var(--ink);font-size:14px;letter-spacing:.09em;font-weight:750;position:relative}
@@ -317,7 +317,7 @@ input::placeholder,textarea::placeholder{font-size:14px;color:#77848e}
 @media(max-width:900px){
 :root{--header-height:76px;--container:calc(100% - 48px)}
 .desktop-nav,.header-cta{display:none}.menu-toggle{display:block}
-.brand-logo{width:78px}.brand-logo strong{font-size:31px}.brand-logo small{font-size:11px;margin-top:6px}
+.brand-logo{width:78px}.brand-logo strong{font-size:31px}.brand-logo small{font-size:14px;margin-top:3px}
 .section{padding:80px 0}.section-head{gap:30px;margin-bottom:38px}
 .hero-editorial{min-height:660px}.hero h1{font-size:50px}.hero-content{max-width:600px}
 .hero-media{object-position:65% center}.hero-shade{background:linear-gradient(90deg,#11171ce8,#11171c50)}
@@ -840,4 +840,16 @@ body[data-view] .cad-business .section{padding-top:26px}
 .hp-banner-bottom{bottom:17px;flex-wrap:wrap;gap:12px}
 .hp-banner-bottom .hp-slider-controls{order:-1;flex:1 0 100%;justify-content:center}
 .hp-banner-bottom .hp-slide-pause{margin-left:10px}
+}
+
+/* v37 — navy circular home frame */
+.hp-banner-frame{border-color:#132f4a;border-radius:50%;width:min(530px,100%);aspect-ratio:1;background:#0b233945;padding:55px 30px}
+.hp-banner .hp-banner-frame h1{font-size:clamp(38px,5vw,67px)}
+.hp-banner-frame>span{font-size:10px;letter-spacing:.13em}
+@media(max-width:700px){
+.hp-banner-frame{width:min(390px,100%);padding:35px 18px;border-width:6px}
+.hp-banner .hp-banner-frame h1{font-size:clamp(30px,8.5vw,46px);margin:16px 0 12px}
+.hp-banner-frame>span{font-size:8px;letter-spacing:.08em}
+.hp-banner-frame p{font-size:clamp(15px,4.4vw,19px)}
+.hp-banner-frame>a{margin-top:17px;font-size:11px}
 }
