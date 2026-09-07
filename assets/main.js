@@ -1,10 +1,17 @@
+// Preserve previously shared section URLs after splitting category pages.
+const legacySectionPages = {"greeting":"company.html","certifications":"certifications.html","organization":"organization.html","location":"location.html","overview":"company-profile.html","jig":"services.html","factory":"automation.html","blasting":"sandblasting.html","mechanical":"automation.html#mechanical","welding":"automation.html#welding","robot":"automation.html#robot"};
+const legacyFile = location.pathname.split("/").pop();
+if (["company.html", "services.html"].includes(legacyFile)) {
+  const destination = legacySectionPages[location.hash.slice(1)];
+  if (destination && destination.split("#")[0] !== legacyFile) location.replace(destination);
+}
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-25";
+const siteVersion = "20260907-27";
 const navItems = [
-  { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}#greeting`, children: [["인사말", `company.html?v=${siteVersion}#greeting`], ["인증서", `company.html?v=${siteVersion}#certifications`], ["조직도", `company.html?v=${siteVersion}#organization`], ["오시는 길", `company.html?v=${siteVersion}#location`]] },
-  { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}#jig`, children: [["지그", `services.html?v=${siteVersion}#jig`], ["자동화설비", `services.html?v=${siteVersion}#factory`]] },
-  { key: "contact", en: "CONTACT", ko: "문의", href: `contact.html?v=${siteVersion}#inquiry`, children: [["문의", `contact.html?v=${siteVersion}#inquiry`], ["공지사항", `notices.html?v=${siteVersion}`]] }
+  { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}`], ["인증서", `certifications.html?v=${siteVersion}`], ["조직도", `organization.html?v=${siteVersion}`], ["오시는 길", `location.html?v=${siteVersion}`]] },
+  { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}`], ["자동화설비", `automation.html?v=${siteVersion}`]] },
+  { key: "contact", en: "CONTACT", ko: "문의", href: `contact.html?v=${siteVersion}`, children: [["문의", `contact.html?v=${siteVersion}`], ["공지사항", `notices.html?v=${siteVersion}`]] }
 ];
 
 const brand = `
@@ -23,7 +30,7 @@ if (header) {
           ${navItems.map(item => `<div class="nav-item"><a href="${item.href}" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-all">${item.en}<span>${item.ko}</span></a></div>`).join("")}
           <div class="mega-menu mega-all" id="mega-all"><div class="container all-menu-inner">${navItems.map(item => `<section class="all-menu-column" aria-label="${item.ko}"><h2><a href="${item.href}"><small>${item.en}</small>${item.ko}</a></h2><ul>${item.children.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join("")}</ul></section>`).join("")}</div></div>
         </nav>
-        <a class="header-cta" href="contact.html?v=${siteVersion}#inquiry">견적·프로젝트 문의</a>
+        <a class="header-cta" href="contact.html?v=${siteVersion}">견적·프로젝트 문의</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span></button>
       </div>
     </header>
@@ -205,9 +212,9 @@ window.matchMedia("(min-width: 901px)").addEventListener("change", () => {
   closeMobileMenu();
   closeDesktopMenus();
 });
-document.querySelectorAll(".detail-nav a").forEach(link => {
+document.querySelectorAll('.detail-nav a[href^="#"]').forEach(link => {
   link.addEventListener("click", () => {
-    document.querySelectorAll(".detail-nav a").forEach(item => item.removeAttribute("aria-current"));
+    document.querySelectorAll('.detail-nav a[href^="#"]').forEach(item => item.removeAttribute("aria-current"));
     link.setAttribute("aria-current", "location");
   });
 });
