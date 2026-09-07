@@ -569,3 +569,31 @@ body[data-view] .cad-business .section{padding:24px 0 48px}
 .cad-description ul{margin-top:18px;padding-top:14px}
 .cad-rows{margin-bottom:42px}
 }
+
+/* v30: broad business scope, with images presented as examples */
+.business-overview{display:grid;grid-template-columns:1fr 1fr;gap:24px 70px;padding:16px 0 56px}
+.business-overview>.section-kicker{grid-column:1/-1}
+.business-overview>h2{font-size:clamp(28px,3vw,42px);font-weight:550;letter-spacing:-.05em}
+.business-overview>p{color:var(--muted);font-size:16px;line-height:1.95}
+.scope-invitation{grid-column:1/-1;margin-top:18px;padding:28px 32px;background:#f4f7f8;border-left:2px solid #1787b5}
+.scope-invitation>strong{font-size:19px;font-weight:550}
+.scope-invitation>p{font-size:15px;color:var(--muted);margin-top:10px;line-height:1.9}
+.scope-invitation .text-link{margin-top:12px}
+.application-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;border-top:1px solid var(--line);padding-top:30px;margin-bottom:25px}
+.application-heading h3{font-size:21px;font-weight:550}
+.application-heading p{color:var(--muted);font-size:13px}
+.application-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-bottom:55px}
+.application-gallery figure{min-width:0;background:white;border:1px solid #e7ebee}
+.application-gallery img{width:100%;height:350px;object-fit:contain}
+.application-gallery figcaption{padding:15px 20px;border-top:1px solid #eef1f3;color:#72808a;font-size:12px}
+.application-blank{min-height:180px}
+.application-note{margin:-20px 0 48px;padding:22px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:14px}
+@media(max-width:700px){
+.business-overview{grid-template-columns:1fr;gap:20px;padding-bottom:36px}
+.scope-invitation{padding:24px 22px;margin-top:4px}
+.application-heading{display:block}
+.application-heading p{margin-top:10px}
+.application-gallery{grid-template-columns:1fr;gap:22px;margin-bottom:38px}
+.application-gallery img{height:300px}
+.application-blank{min-height:60px}
+}
