@@ -762,3 +762,21 @@ body[data-view] .cad-business .section{padding:24px 0 48px}
 .hp-contact-inner{flex-direction:column;align-items:start;gap:28px}
 .hp-contact p{font-size:14px}
 }
+
+/* v33 — generated industrial photographs, full image framing */
+.hp-hero-figure{padding:0;background:#1c2932;color:#fff;border:1px solid #52616c}
+.hp-drawing-top{padding:15px 20px;border-color:#52616c;color:#b8c7d2}
+.hp-hero-figure img{height:auto;aspect-ratio:3/2;object-fit:contain}
+.hp-hero-figure figcaption{padding:16px 20px;border-color:#52616c}
+.hp-hero-figure figcaption small{color:#bac8d2}
+.hp-business-card figure{margin-top:24px}
+.hp-business-card img{height:auto;aspect-ratio:3/2;object-fit:contain}
+.hp-business-card figcaption{margin-top:10px}
+
+/* v34 — supplied low-resolution industry references */
+.hp-reference-mosaic{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;background:#e9eef1}
+.hp-hero-figure .hp-reference-mosaic img{width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#dce3e7}
+.hp-business-card figure{background:#f1f4f6;padding:24px 20px 12px;display:flex;flex-direction:column;align-items:center}
+.hp-business-card figure img{width:100%;max-width:306px;height:auto;aspect-ratio:auto;object-fit:contain}
+.hp-business-card figcaption{align-self:flex-end}
+@media(max-width:700px){.hp-reference-mosaic{gap:6px;padding:8px}.hp-hero-figure figcaption{align-items:start;flex-direction:column;gap:5px}}
