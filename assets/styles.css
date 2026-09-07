@@ -434,3 +434,104 @@ input::placeholder,textarea::placeholder{font-size:14px;color:#77848e}
 
 .detail-nav a[aria-current="page"]{color:var(--blue-strong);border-bottom:2px solid var(--blue-strong)}
 .related-service{padding-block:32px 56px}
+
+/* v28: standalone pages — industrial mastheads and editorial composition */
+body[data-view] .page-hero{background:#172028;color:white;padding:66px 0 54px;overflow:hidden;isolation:isolate}
+body[data-view] .page-hero::before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,#11191ff5 15%,#11191fb8 55%,#11191f66),url("images/engineering-hero.webp") center 55%/cover}
+body[data-view] .page-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,transparent 66%,#ffffff10 66%,#ffffff10 calc(66% + 1px),transparent calc(66% + 1px))}
+body[data-view] .page-hero-inner{row-gap:14px}
+body[data-view] .breadcrumb{color:#b4c2cc;margin-bottom:7px;font-size:10px}
+.masthead-label{grid-column:1/-1;font-size:clamp(28px,5vw,72px);font-family:Arial,sans-serif;font-weight:600;letter-spacing:-.025em;line-height:1.1;color:#fff;margin-bottom:18px}
+body[data-view] .page-hero h1{font-size:clamp(25px,2.6vw,38px);font-weight:500}
+body[data-view] .page-hero p{color:#c4ced6;font-size:15px}
+.masthead-meta{grid-column:1/-1;display:flex;justify-content:space-between;gap:20px;border-top:1px solid #ffffff25;padding-top:22px;margin-top:26px;color:#aabac5;font-size:10px;letter-spacing:.12em}
+.masthead-meta small{font-size:10px;letter-spacing:0;color:#aabac5}
+body[data-view] .detail-nav-inner{justify-content:center;gap:58px}
+body[data-view] .detail-nav a{min-height:74px;font-size:15px}
+body[data-view] .section{padding:100px 0 112px}
+body[data-view] .section-head{padding-bottom:32px;border-bottom:1px solid var(--line);margin-bottom:48px}
+body[data-view] .section-kicker{font-size:11px}
+body[data-view] .section-title{font-weight:550}
+body[data-view="company"] #greeting{background:#f6f5f2;color:var(--ink);padding-top:82px}
+.message-block.message-editorial{display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start}
+.message-editorial .message-statement{background:#1b252d;color:#fff;padding:48px 42px;position:relative;border-top:3px solid #078cce}
+.message-editorial .section-kicker{color:#96bbce}
+.message-editorial .message-quote{font-size:clamp(28px,2.65vw,39px);font-weight:500;margin-top:32px;line-height:1.55;letter-spacing:-.06em}
+.message-visual{margin-top:44px;border-top:1px solid #ffffff25;padding-top:24px}
+.message-visual img{width:100%;height:210px;object-fit:cover;object-position:65% 60%;filter:saturate(.35)}
+.message-visual figcaption{font-size:10px;color:#aebbc4;margin-top:10px}
+.message-editorial .message-body{padding-top:12px;color:#52606b;font-size:16px}
+.message-editorial .message-body p{line-height:2.05;margin-bottom:26px}
+.message-editorial .message-body p:first-child{font-size:21px;color:#1b252d;font-weight:550;line-height:1.75;margin-bottom:34px}
+.message-editorial .message-sign{border-color:#bfc8cc;color:var(--ink);display:flex;align-items:end;justify-content:space-between;gap:24px;padding-top:30px;margin-top:42px}
+.message-sign small{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--muted)}
+.message-sign strong{display:block;font-size:26px;font-weight:500;letter-spacing:.12em;margin-top:8px}
+.signature-brand{font-family:Arial,sans-serif;font-size:22px;letter-spacing:-.045em;font-weight:800}
+body[data-view="certifications"] #certifications{background:#f6f5f2}
+body[data-view="certifications"] .cert-card{background:#fff;border:1px solid #e1e3e3;box-shadow:0 14px 32px #17202808}
+body[data-view="certifications"] .cert-info{padding:28px 24px 24px;border-top:2px solid #273742}
+body[data-view="certifications"] .cert-info h3{font-size:21px}
+body[data-view="certifications"] .cert-thumb{margin:0 20px 22px;padding:12px;background:#edf0f0;border-color:#e1e5e7}
+body[data-view="organization"] .org-chart{padding:54px 32px 36px;background:linear-gradient(#f6f8f9,#fff);border:1px solid #e1e6e9}
+body[data-view="organization"] .org-ceo{width:260px;padding:30px;background:#1c2b35}
+body[data-view="organization"] .org-ceo span{font-size:27px}
+body[data-view="organization"] .org-column{background:#fff;border:1px solid #dce3e7;border-top:3px solid #273742}
+body[data-view="organization"] .org-column.rnd{border-top-color:#078cce}
+body[data-view="organization"] .org-division{padding-block:28px;min-height:120px}
+body[data-view="location"] #location{background:#fff}
+body[data-view="location"] .location-grid{gap:32px}
+body[data-view="location"] .location-grid .service-card{position:relative;padding:48px 40px;background:#f1f4f5;border-top:3px solid #253642;min-height:270px}
+body[data-view="location"] .service-card h3{font-size:29px;margin:36px 0 20px}
+body[data-view="location"] .service-card p{font-size:17px;max-width:350px}
+body[data-view="services"] .business-gallery{grid-template-columns:1fr 1fr;gap:32px}
+body[data-view="services"] .business-gallery img{height:390px}
+body[data-view="automation"] #factory{background:#fff}
+body[data-view="automation"] .business-gallery{gap:24px}
+body[data-view="services"] .business-gallery figure,body[data-view="automation"] .business-gallery figure{background:#303944;border:1px solid #394754}
+body[data-view="services"] .business-gallery figcaption,body[data-view="automation"] .business-gallery figcaption{padding:24px 26px;background:#202b34}
+body[data-view] .scope-columns{gap:32px}
+body[data-view] .scope-columns .detail-block{border-top:2px solid #263640;padding-top:24px}
+body[data-view] .scope-columns .detail-block h3{font-size:19px;margin-bottom:22px}
+body[data-view] .scope-panel summary{min-height:94px}
+body[data-view="contact"] .contact-layout{gap:72px;align-items:start}
+body[data-view="contact"] .contact-panel{padding:36px 30px;background:#202d36;color:white;border-top:3px solid #078cce}
+body[data-view="contact"] .contact-panel .section-kicker{color:#96c4db}
+body[data-view="contact"] .contact-panel p,body[data-view="contact"] .contact-list{color:#c1cbd2}
+body[data-view="contact"] .contact-list small{color:#98b4c6}
+body[data-view="contact"] .form-grid{padding:36px;border:1px solid #dce3e7;background:#fff;box-shadow:0 12px 40px #1b293408}
+body[data-view="notices"] .empty-notice{padding:80px 30px;border-top:2px solid #253642;border-bottom:1px solid #dce3e7;background:#f7f8f8;box-shadow:none}
+@media(max-width:1000px){
+.message-block.message-editorial{gap:38px;grid-template-columns:.9fr 1.1fr}
+.message-editorial .message-statement{padding:36px 28px}
+body[data-view="organization"] .org-chart{padding-inline:18px}
+body[data-view="contact"] .contact-layout{gap:32px}
+body[data-view="services"] .business-gallery img{height:300px}
+}
+@media(max-width:760px){
+body[data-view] .page-hero{padding:42px 0 32px}
+body[data-view] .page-hero-inner{grid-template-columns:1fr;gap:12px}
+.masthead-label{font-size:clamp(28px,7.5vw,50px);overflow-wrap:anywhere;margin-bottom:8px}
+body[data-view] .page-hero h1{font-size:27px}
+body[data-view] .page-hero p{font-size:14px;max-width:100%}
+.masthead-meta{margin-top:12px;padding-top:18px;flex-wrap:wrap;gap:8px;font-size:9px}
+body[data-view] .detail-nav-inner{justify-content:flex-start;gap:28px}
+body[data-view] .detail-nav a{min-height:60px;font-size:14px}
+body[data-view] .section{padding:62px 0 70px}
+body[data-view] .section-head{gap:24px;padding-bottom:26px;margin-bottom:34px}
+.message-block.message-editorial{grid-template-columns:1fr;gap:38px}
+body[data-view="company"] #greeting{padding-top:44px}
+.message-editorial .message-statement{padding:32px 26px}
+.message-editorial .message-quote{font-size:30px;margin-top:22px}
+.message-visual{margin-top:30px}
+.message-visual img{height:170px}
+.message-editorial .message-body{font-size:15px;padding:0}
+.message-editorial .message-body p:first-child{font-size:19px}
+body[data-view="organization"] .org-chart{padding:36px 18px}
+body[data-view="location"] .location-grid{grid-template-columns:1fr;gap:24px}
+body[data-view="location"] .location-grid .service-card{padding:32px 26px;min-height:230px}
+body[data-view="services"] .business-gallery{grid-template-columns:1fr;gap:24px}
+body[data-view="services"] .business-gallery img{height:300px}
+body[data-view="contact"] .form-grid{padding:24px 18px}
+body[data-view="contact"] .contact-panel{padding:30px 24px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
