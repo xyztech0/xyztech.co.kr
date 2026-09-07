@@ -465,7 +465,7 @@ body[data-view="company"] #greeting{background:#f6f5f2;color:var(--ink);padding-
 .message-editorial .message-body{padding-top:12px;color:#52606b;font-size:16px}
 .message-editorial .message-body p{line-height:2.05;margin-bottom:26px}
 .message-editorial .message-body p:first-child{font-size:21px;color:#1b252d;font-weight:550;line-height:1.75;margin-bottom:34px}
-.message-editorial .message-sign{border-color:#bfc8cc;color:var(--ink);display:flex;align-items:end;justify-content:space-between;gap:24px;padding-top:30px;margin-top:42px}
+.message-editorial .message-sign{border-color:#bfc8cc;color:var(--ink);display:flex;align-items:end;justify-content:flex-end;text-align:right;width:100%;gap:24px;padding-top:30px;margin-top:42px}
 .message-sign small{display:block;font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--muted)}
 .message-sign strong{display:block;font-size:26px;font-weight:500;letter-spacing:.12em;margin-top:8px}
 .signature-brand{font-family:Arial,sans-serif;font-size:22px;letter-spacing:-.045em;font-weight:800}
