@@ -7,7 +7,7 @@ if (["company.html", "services.html"].includes(legacyFile)) {
 }
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-31";
+const siteVersion = "20260907-32";
 const navItems = [
   { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}`], ["인증서", `certifications.html?v=${siteVersion}`], ["조직도", `organization.html?v=${siteVersion}`], ["오시는 길", `location.html?v=${siteVersion}`]] },
   { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}`], ["자동화설비", `automation.html?v=${siteVersion}`]] },
