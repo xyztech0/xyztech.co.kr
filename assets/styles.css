@@ -808,3 +808,36 @@ body[data-view] .cad-business .section{padding:24px 0 48px}
 @keyframes hp-photo-in{from{opacity:.15;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){.hp-slides{padding:18px 14px;min-height:282px}.hp-hero-figure .hp-slide img{height:205px;max-width:306px}.hp-slider-controls{gap:8px;padding:10px}.hp-slide-dots button{width:28px}.hp-slide-pause{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.hp-slide.is-current{animation:none}.hp-motion,.hp-business-card,.hp-slide-dots button span{transition:none}.hp-awaiting{opacity:1;transform:none}}
+
+/* v36 full-width horizontal photographic hero */
+.hp-banner{padding:0;background:#182b39}
+.hp-banner-slider{height:clamp(540px,calc(100svh - var(--header-height)),800px);position:relative;overflow:hidden}
+.hp-banner-track{display:flex;height:100%;width:100%;will-change:transform}
+.hp-banner-slide{flex:0 0 100%;min-width:0;height:100%}
+.hp-banner-slide img{width:100%;height:100%;object-fit:cover}
+.hp-banner-shade{position:absolute;inset:0;background:linear-gradient(90deg,#071b2c70,#071b2c4d),linear-gradient(0deg,#071725a6,transparent 40%);pointer-events:none}
+.hp-banner-content{position:absolute;inset:0;display:grid;place-items:center;padding:38px 24px 90px;pointer-events:none}
+.hp-banner-frame{width:min(520px,100%);aspect-ratio:1;border:10px solid #247cba;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 20px;color:white;background:#102b3e20;pointer-events:auto}
+.hp-banner-frame>span{font-size:11px;letter-spacing:.19em;color:#d0e2ed}
+.hp-banner .hp-banner-frame h1{font-family:Arial,sans-serif;font-size:clamp(44px,5.5vw,76px);font-weight:750;line-height:1.2;letter-spacing:-.035em;margin:26px 0 20px}
+.hp-banner-frame p{font-size:clamp(18px,2vw,25px);line-height:1.65;font-weight:450}
+.hp-banner-frame>a{font-size:13px;margin-top:30px;padding-bottom:7px;border-bottom:1px solid #ffffff88}
+.hp-banner-bottom{position:absolute;bottom:25px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#e1eaf0}
+.hp-banner-bottom .hp-slider-controls{border:0;background:#122b3a8c;padding:5px 12px}
+.hp-banner-note,.hp-banner-scroll{font-size:11px}
+.hp-banner::after{display:none}
+.cad-business .application-heading{border-top:0;padding-top:0}
+.cad-business .business-overview{margin-top:40px;border-top:1px solid var(--line);padding-top:40px}
+body[data-view] .cad-business .section{padding-top:26px}
+@media(max-width:700px){
+.hp-banner-slider{height:600px;height:min(680px,calc(100svh - var(--header-height)));min-height:460px}
+.hp-banner-content{padding:35px 24px 125px}
+.hp-banner-frame{width:min(390px,100%);border-width:6px;padding:20px 12px}
+.hp-banner .hp-banner-frame h1{font-size:48px;margin:18px 0 14px}
+.hp-banner-frame>span{font-size:9px}
+.hp-banner-frame p{font-size:19px}
+.hp-banner-frame>a{margin-top:20px;font-size:12px}
+.hp-banner-bottom{bottom:17px;flex-wrap:wrap;gap:12px}
+.hp-banner-bottom .hp-slider-controls{order:-1;flex:1 0 100%;justify-content:center}
+.hp-banner-bottom .hp-slide-pause{margin-left:10px}
+}
