@@ -7,7 +7,7 @@ if (["company.html", "services.html"].includes(legacyFile)) {
 }
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-37";
+const siteVersion = "20260907-38";
 const navItems = [
   { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}`], ["인증서", `certifications.html?v=${siteVersion}`], ["조직도", `organization.html?v=${siteVersion}`], ["오시는 길", `location.html?v=${siteVersion}`]] },
   { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}`], ["자동화설비", `automation.html?v=${siteVersion}`]] },
@@ -15,7 +15,7 @@ const navItems = [
 ];
 
 const brand = `
-  <a class="brand" href="index.html?v=${siteVersion}" aria-label="XYZTECH 홈">
+  <a class="brand" href="index.html?v=${siteVersion}" aria-label="XYZ TECH 홈">
     <span class="brand-logo" aria-hidden="true"><strong><span>X</span><span>Y</span><span>Z</span></strong><small><span>T</span><span>E</span><span>C</span><span>H</span></small></span>
   </a>`;
 
@@ -59,7 +59,7 @@ if (footer) {
         <p>상호 엑스와이지(xyz)테크 · 대표 박재훈 · 사업자등록번호 498-52-00813</p>
         <p>설계사무소 · 경기도 안산시 단원구 풍전로 37-9, 301동 235호</p>
         <p>샌드블라스팅 작업장 · 경기도 안산시 단원구 산단로 326, 20동 117호 · E-mail ceo@xyztech.co.kr</p>
-        <p>© <span data-year></span> XYZTECH. All rights reserved.</p>
+        <p>© <span data-year></span> XYZ TECH. All rights reserved.</p>
       </div>
     </footer>`;
 }
@@ -124,7 +124,7 @@ if (inquiryForm) {
     event.preventDefault();
     if (!inquiryForm.reportValidity()) return;
     const data = new FormData(inquiryForm);
-    const subject = `[XYZTECH 사업문의] ${data.get("company")} / ${data.get("service")}`;
+    const subject = `[XYZ TECH 사업문의] ${data.get("company")} / ${data.get("service")}`;
     const body = [
       `회사명: ${data.get("company")}`,
       `담당자: ${data.get("name")}`,
@@ -290,7 +290,7 @@ if (homeSlider) {
   function schedule() {
     clearTimeout(timer);
     if (paused || hovering || !inView || document.hidden || homeSlider.contains(document.activeElement)) return;
-    timer = setTimeout(() => { show(current + 1); schedule(); }, 5000);
+    timer = setTimeout(() => { show(current + 1); schedule(); }, 3000);
   }
   homeSlider.querySelector(".hp-slider-controls").hidden = false;
   dots.forEach((dot, i) => dot.addEventListener("click", () => { show(i); paused = true; label(); schedule(); }));

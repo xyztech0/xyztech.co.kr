@@ -1,4 +1,6 @@
-/* XYZTECH — Industrial editorial identity, v23 */
+/* XYZ TECH — Industrial editorial identity */
+.message-editorial .message-sign{justify-content:flex-end}
+.message-editorial .message-sign .ceo-signature{font-size:clamp(20px,2.3vw,28px);font-weight:750;letter-spacing:-.025em;margin-top:0}
 :root{--navy-950:#11171c;--navy-900:#192128;--navy-850:#232c34;--navy-800:#303c46;--blue:#078cce;--blue-strong:#007caf;--cyan-soft:#b6e1f4;--steel:#a4b0b9;--ink:#172028;--muted:#586670;--line:#dce1e5;--surface:#f3f5f6;--white:#fff;--container:min(1280px,calc(100% - 112px));--header-height:92px;--shadow:0 20px 55px #11202e10}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--header-height) + 80px)}
