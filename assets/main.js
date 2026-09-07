@@ -1,6 +1,6 @@
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-22";
+const siteVersion = "20260907-24";
 const navItems = [
   { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}#greeting`], ["인증서", `company.html?v=${siteVersion}#certifications`], ["조직도", `company.html?v=${siteVersion}#organization`], ["오시는 길", `company.html?v=${siteVersion}#location`]] },
   { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}#jig`], ["자동화설비", `services.html?v=${siteVersion}#factory`]] },
@@ -20,7 +20,8 @@ if (header) {
       <div class="container header-inner">
         ${brand}
         <nav class="desktop-nav" aria-label="주 메뉴">
-          ${navItems.map(item => `<div class="nav-item"><button type="button" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-${item.key}">${item.en}<span>${item.ko}</span></button><div class="mega-menu" id="mega-${item.key}"><div class="container mega-inner"><div class="mega-title"><small>${item.en}</small><strong>${item.ko}</strong><p>XYZTECH의 ${item.ko} 정보를 확인하세요.</p></div><div class="mega-links">${item.children.map(([label, href], index) => `<a href="${href}"><span>0${index + 1}</span><strong>${label}</strong><i>→</i></a>`).join("")}</div><div class="mega-visual" aria-hidden="true"><img src="assets/projects/turntable-assembly.jpg" alt=""><b>${item.en}</b></div></div></div></div>`).join("")}
+          ${navItems.map(item => `<div class="nav-item"><button type="button" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-all">${item.en}<span>${item.ko}</span></button></div>`).join("")}
+          <div class="mega-menu mega-all" id="mega-all"><div class="container all-menu-inner">${navItems.map(item => `<section class="all-menu-column" aria-label="${item.ko}"><h2><a href="${item.href}"><small>${item.en}</small>${item.ko}</a></h2><ul>${item.children.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join("")}</ul></section>`).join("")}</div></div>
         </nav>
         <a class="header-cta" href="contact.html?v=${siteVersion}#inquiry">견적·프로젝트 문의</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span></button>
@@ -93,7 +94,8 @@ if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-mot
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0, rootMargin: "0px 0px -25px 0px" });
+  document.documentElement.classList.add("motion-ready");
   revealItems.forEach(item => observer.observe(item));
 } else {
   revealItems.forEach(item => item.classList.add("visible"));
@@ -136,33 +138,52 @@ if (inquiryForm) {
 
 // Shared disclosure navigation: pointer, keyboard and touch.
 const desktopItems = [...document.querySelectorAll(".nav-item")];
+const desktopNav = document.querySelector(".desktop-nav");
+const desktopPanel = document.querySelector("#mega-all");
+let activeDesktopButton = null;
 function closeDesktopMenus() {
+  if (desktopNav) desktopNav.classList.remove("all-open");
   desktopItems.forEach(item => {
     item.classList.remove("is-open");
     item.querySelector(".nav-link").setAttribute("aria-expanded", "false");
   });
 }
 function openDesktopMenu(item) {
-  closeDesktopMenus();
-  item.classList.add("is-open");
-  item.querySelector(".nav-link").setAttribute("aria-expanded", "true");
+  if (!desktopNav) return;
+  desktopNav.classList.add("all-open");
+  activeDesktopButton = item.querySelector(".nav-link");
+  desktopItems.forEach(other => {
+    other.classList.toggle("is-open", other === item);
+    other.querySelector(".nav-link").setAttribute("aria-expanded", "true");
+  });
 }
 desktopItems.forEach(item => {
   const button = item.querySelector(".nav-link");
   button.addEventListener("click", () => {
-    if (button.getAttribute("aria-expanded") === "true") closeDesktopMenus();
+    if (desktopNav.classList.contains("all-open") && activeDesktopButton === button) closeDesktopMenus();
     else openDesktopMenu(item);
   });
-  item.addEventListener("pointerenter", event => {
+  button.addEventListener("pointerenter", event => {
     if (event.pointerType === "mouse") openDesktopMenu(item);
   });
-  item.addEventListener("pointerleave", event => {
-    if (event.pointerType === "mouse" && !item.contains(document.activeElement)) closeDesktopMenus();
+  button.addEventListener("keydown", event => {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      openDesktopMenu(item);
+      const index = desktopItems.indexOf(item);
+      desktopPanel.querySelectorAll(".all-menu-column")[index].querySelector("li a").focus();
+    }
   });
-  item.addEventListener("focusout", event => {
-    if (!item.contains(event.relatedTarget)) closeDesktopMenus();
+});
+if (desktopNav) {
+  desktopNav.addEventListener("focusout", event => {
+    if (!desktopNav.contains(event.relatedTarget)) closeDesktopMenus();
   });
-  item.querySelectorAll(".mega-links a").forEach(link => link.addEventListener("click", closeDesktopMenus));
+  desktopNav.querySelectorAll(".all-menu-column a").forEach(link => link.addEventListener("click", closeDesktopMenus));
+}
+const siteHeader = document.querySelector(".site-header");
+if (siteHeader) siteHeader.addEventListener("pointerleave", event => {
+  if (event.pointerType === "mouse" && !desktopPanel.contains(document.activeElement)) closeDesktopMenus();
 });
 document.addEventListener("click", event => {
   if (!event.target.closest(".desktop-nav")) closeDesktopMenus();
@@ -185,7 +206,7 @@ document.addEventListener("keydown", event => {
     toggle.focus();
   }
 });
-window.matchMedia("(min-width: 1001px)").addEventListener("change", () => {
+window.matchMedia("(min-width: 901px)").addEventListener("change", () => {
   closeMobileMenu();
   closeDesktopMenus();
 });
@@ -194,4 +215,36 @@ document.querySelectorAll(".detail-nav a").forEach(link => {
     document.querySelectorAll(".detail-nav a").forEach(item => item.removeAttribute("aria-current"));
     link.setAttribute("aria-current", "location");
   });
+});
+
+// Mark current section and make deep links into scope disclosures usable.
+function revealHashTarget() {
+  const hash = location.hash.slice(1);
+  if (!hash) return;
+  const target = document.getElementById(hash);
+  if (target && target.matches("details")) target.open = true;
+}
+revealHashTarget();
+window.addEventListener("hashchange", revealHashTarget);
+const sectionLinks = [...document.querySelectorAll(".detail-nav a[href^='#']")];
+if ("IntersectionObserver" in window && sectionLinks.length) {
+  const activeObserver = new IntersectionObserver(entries => {
+    entries.filter(entry => entry.isIntersecting).forEach(entry => {
+      sectionLinks.forEach(link => {
+        if (link.hash === "#" + entry.target.id) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    });
+  }, { rootMargin: "-145px 0px -55% 0px", threshold: 0 });
+  sectionLinks.forEach(link => {
+    const target = document.querySelector(link.hash);
+    if (target) activeObserver.observe(target);
+  });
+}
+document.addEventListener("keydown", event => {
+  if (event.key !== "Tab" || !mobileNav || !mobileNav.classList.contains("open")) return;
+  const focusable = [toggle, ...mobileNav.querySelectorAll("button, a")].filter(el => el.getClientRects().length);
+  const first = focusable[0], last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 });
