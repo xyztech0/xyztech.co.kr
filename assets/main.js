@@ -1,10 +1,10 @@
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-24";
+const siteVersion = "20260907-25";
 const navItems = [
-  { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}#greeting`], ["인증서", `company.html?v=${siteVersion}#certifications`], ["조직도", `company.html?v=${siteVersion}#organization`], ["오시는 길", `company.html?v=${siteVersion}#location`]] },
-  { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}#jig`], ["자동화설비", `services.html?v=${siteVersion}#factory`]] },
-  { key: "contact", en: "CONTACT", ko: "문의", href: `contact.html?v=${siteVersion}`, children: [["문의", `contact.html?v=${siteVersion}#inquiry`], ["공지사항", `notices.html?v=${siteVersion}`]] }
+  { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}#greeting`, children: [["인사말", `company.html?v=${siteVersion}#greeting`], ["인증서", `company.html?v=${siteVersion}#certifications`], ["조직도", `company.html?v=${siteVersion}#organization`], ["오시는 길", `company.html?v=${siteVersion}#location`]] },
+  { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}#jig`, children: [["지그", `services.html?v=${siteVersion}#jig`], ["자동화설비", `services.html?v=${siteVersion}#factory`]] },
+  { key: "contact", en: "CONTACT", ko: "문의", href: `contact.html?v=${siteVersion}#inquiry`, children: [["문의", `contact.html?v=${siteVersion}#inquiry`], ["공지사항", `notices.html?v=${siteVersion}`]] }
 ];
 
 const brand = `
@@ -20,7 +20,7 @@ if (header) {
       <div class="container header-inner">
         ${brand}
         <nav class="desktop-nav" aria-label="주 메뉴">
-          ${navItems.map(item => `<div class="nav-item"><button type="button" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-all">${item.en}<span>${item.ko}</span></button></div>`).join("")}
+          ${navItems.map(item => `<div class="nav-item"><a href="${item.href}" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-all">${item.en}<span>${item.ko}</span></a></div>`).join("")}
           <div class="mega-menu mega-all" id="mega-all"><div class="container all-menu-inner">${navItems.map(item => `<section class="all-menu-column" aria-label="${item.ko}"><h2><a href="${item.href}"><small>${item.en}</small>${item.ko}</a></h2><ul>${item.children.map(([label, href]) => `<li><a href="${href}">${label}</a></li>`).join("")}</ul></section>`).join("")}</div></div>
         </nav>
         <a class="header-cta" href="contact.html?v=${siteVersion}#inquiry">견적·프로젝트 문의</a>
@@ -28,7 +28,7 @@ if (header) {
       </div>
     </header>
     <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴">
-      ${navItems.map(item => `<div class="mobile-nav-group"><button type="button" class="mobile-nav-heading" aria-expanded="false" aria-controls="mobile-${item.key}"><span><b>${item.en}</b>${item.ko}</span><i>＋</i></button><div class="mobile-submenu" id="mobile-${item.key}">${item.children.map(([label, href]) => `<a href="${href}">${label}<span>→</span></a>`).join("")}</div></div>`).join("")}
+      ${navItems.map(item => `<div class="mobile-nav-group"><div class="mobile-nav-heading"><a class="mobile-category-link" href="${item.href}"><span><b>${item.en}</b>${item.ko}</span></a><button type="button" class="mobile-submenu-toggle" aria-label="${item.ko} 하위 메뉴 펼치기" aria-expanded="false" aria-controls="mobile-${item.key}"><i aria-hidden="true">＋</i></button></div><div class="mobile-submenu" id="mobile-${item.key}">${item.children.map(([label, href]) => `<a href="${href}">${label}<span>→</span></a>`).join("")}</div></div>`).join("")}
     </nav>`;
 }
 
@@ -71,10 +71,10 @@ if (toggle && mobileNav) {
   });
 }
 
-document.querySelectorAll(".mobile-nav-heading").forEach(button => {
+document.querySelectorAll(".mobile-submenu-toggle").forEach(button => {
   button.addEventListener("click", () => {
     const open = button.getAttribute("aria-expanded") === "true";
-    document.querySelectorAll(".mobile-nav-heading").forEach(item => {
+    document.querySelectorAll(".mobile-submenu-toggle").forEach(item => {
       item.setAttribute("aria-expanded", "false");
       item.closest(".mobile-nav-group").classList.remove("open");
     });
@@ -140,7 +140,6 @@ if (inquiryForm) {
 const desktopItems = [...document.querySelectorAll(".nav-item")];
 const desktopNav = document.querySelector(".desktop-nav");
 const desktopPanel = document.querySelector("#mega-all");
-let activeDesktopButton = null;
 function closeDesktopMenus() {
   if (desktopNav) desktopNav.classList.remove("all-open");
   desktopItems.forEach(item => {
@@ -151,7 +150,6 @@ function closeDesktopMenus() {
 function openDesktopMenu(item) {
   if (!desktopNav) return;
   desktopNav.classList.add("all-open");
-  activeDesktopButton = item.querySelector(".nav-link");
   desktopItems.forEach(other => {
     other.classList.toggle("is-open", other === item);
     other.querySelector(".nav-link").setAttribute("aria-expanded", "true");
@@ -159,10 +157,7 @@ function openDesktopMenu(item) {
 }
 desktopItems.forEach(item => {
   const button = item.querySelector(".nav-link");
-  button.addEventListener("click", () => {
-    if (desktopNav.classList.contains("all-open") && activeDesktopButton === button) closeDesktopMenus();
-    else openDesktopMenu(item);
-  });
+  button.addEventListener("click", closeDesktopMenus);
   button.addEventListener("pointerenter", event => {
     if (event.pointerType === "mouse") openDesktopMenu(item);
   });
@@ -195,7 +190,7 @@ function closeMobileMenu() {
   mobileNav.classList.remove("open");
   document.body.classList.remove("menu-open");
 }
-document.querySelectorAll(".mobile-submenu a").forEach(link => link.addEventListener("click", closeMobileMenu));
+document.querySelectorAll(".mobile-submenu a, .mobile-category-link").forEach(link => link.addEventListener("click", closeMobileMenu));
 document.addEventListener("keydown", event => {
   if (event.key !== "Escape") return;
   const openItem = document.querySelector(".nav-item.is-open");
