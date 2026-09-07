@@ -1,15 +1,14 @@
 const page = document.body.dataset.page || "home";
 
+const siteVersion = "20260907-22";
 const navItems = [
-  ["company", "COMPANY", "회사소개", "company.html?v=20260904-20"],
-  ["services", "SERVICES", "사업분야", "services.html?v=20260904-20"],
-  ["capabilities", "CAPABILITIES", "설계역량", "capabilities.html?v=20260904-20"],
-  ["projects", "PROJECTS", "프로젝트", "projects.html?v=20260904-20"],
-  ["contact", "CONTACT", "문의", "contact.html?v=20260904-20"]
+  { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}#greeting`], ["인증서", `company.html?v=${siteVersion}#certifications`], ["조직도", `company.html?v=${siteVersion}#organization`], ["오시는 길", `company.html?v=${siteVersion}#location`]] },
+  { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}#jig`], ["자동화설비", `services.html?v=${siteVersion}#factory`]] },
+  { key: "contact", en: "CONTACT", ko: "문의", href: `contact.html?v=${siteVersion}`, children: [["문의", `contact.html?v=${siteVersion}#inquiry`], ["공지사항", `notices.html?v=${siteVersion}`]] }
 ];
 
 const brand = `
-  <a class="brand" href="index.html?v=20260904-20" aria-label="XYZTECH 홈">
+  <a class="brand" href="index.html?v=${siteVersion}" aria-label="XYZTECH 홈">
     <span class="brand-logo" aria-hidden="true"><strong><span>X</span><span>Y</span><span>Z</span></strong><small><span>T</span><span>E</span><span>C</span><span>H</span></small></span>
   </a>`;
 
@@ -21,14 +20,14 @@ if (header) {
       <div class="container header-inner">
         ${brand}
         <nav class="desktop-nav" aria-label="주 메뉴">
-          ${navItems.map(([key, en, ko, href]) => `<a class="nav-link ${page === key ? "active" : ""}" href="${href}">${en}<span>${ko}</span></a>`).join("")}
+          ${navItems.map(item => `<div class="nav-item"><button type="button" class="nav-link ${page === item.key || (page === "notices" && item.key === "contact") ? "active" : ""}" aria-expanded="false" aria-controls="mega-${item.key}">${item.en}<span>${item.ko}</span></button><div class="mega-menu" id="mega-${item.key}"><div class="container mega-inner"><div class="mega-title"><small>${item.en}</small><strong>${item.ko}</strong><p>XYZTECH의 ${item.ko} 정보를 확인하세요.</p></div><div class="mega-links">${item.children.map(([label, href], index) => `<a href="${href}"><span>0${index + 1}</span><strong>${label}</strong><i>→</i></a>`).join("")}</div><div class="mega-visual" aria-hidden="true"><img src="assets/projects/turntable-assembly.jpg" alt=""><b>${item.en}</b></div></div></div></div>`).join("")}
         </nav>
-        <a class="header-cta" href="contact.html?v=20260904-20">프로젝트·작업 문의</a>
+        <a class="header-cta" href="contact.html?v=${siteVersion}#inquiry">견적·프로젝트 문의</a>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="메뉴 열기"><span></span></button>
       </div>
     </header>
     <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 메뉴">
-      ${navItems.map(([key, en, ko, href]) => `<a href="${href}">${en}<span>${ko}</span></a>`).join("")}
+      ${navItems.map(item => `<div class="mobile-nav-group"><button type="button" class="mobile-nav-heading" aria-expanded="false" aria-controls="mobile-${item.key}"><span><b>${item.en}</b>${item.ko}</span><i>＋</i></button><div class="mobile-submenu" id="mobile-${item.key}">${item.children.map(([label, href]) => `<a href="${href}">${label}<span>→</span></a>`).join("")}</div></div>`).join("")}
     </nav>`;
 }
 
@@ -39,10 +38,12 @@ if (footer) {
       <div class="container footer-main">
         <div class="footer-brand">
           ${brand}
-          <p>생산공정과 작업환경을 이해하는 설계 엔지니어링과 샌드블라스팅 표면처리 작업을 제공합니다.</p>
+          <p>생산공정과 작업환경을 이해하고, 산업 자동화설비와 용접지그를 설계부터 제작까지 수행합니다.</p>
         </div>
         <nav class="footer-nav" aria-label="하단 메뉴">
-          ${navItems.map(([, en, ko, href]) => `<a href="${href}">${en} · ${ko}</a>`).join("")}
+          ${navItems.map(item => `<a href="${item.href}">${item.en} · ${item.ko}</a>`).join("")}
+          <a href="capabilities.html?v=${siteVersion}">CAPABILITIES · 기술역량</a>
+          <a href="projects.html?v=${siteVersion}">PROJECTS · 프로젝트</a>
           <a href="mailto:ceo@xyztech.co.kr">ceo@xyztech.co.kr</a>
         </nav>
       </div>
@@ -68,6 +69,20 @@ if (toggle && mobileNav) {
     document.body.classList.toggle("menu-open", open);
   });
 }
+
+document.querySelectorAll(".mobile-nav-heading").forEach(button => {
+  button.addEventListener("click", () => {
+    const open = button.getAttribute("aria-expanded") === "true";
+    document.querySelectorAll(".mobile-nav-heading").forEach(item => {
+      item.setAttribute("aria-expanded", "false");
+      item.closest(".mobile-nav-group").classList.remove("open");
+    });
+    if (!open) {
+      button.setAttribute("aria-expanded", "true");
+      button.closest(".mobile-nav-group").classList.add("open");
+    }
+  });
+});
 
 const revealItems = document.querySelectorAll(".reveal");
 if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -117,3 +132,66 @@ if (inquiryForm) {
     window.location.href = `mailto:ceo@xyztech.co.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
+
+
+// Shared disclosure navigation: pointer, keyboard and touch.
+const desktopItems = [...document.querySelectorAll(".nav-item")];
+function closeDesktopMenus() {
+  desktopItems.forEach(item => {
+    item.classList.remove("is-open");
+    item.querySelector(".nav-link").setAttribute("aria-expanded", "false");
+  });
+}
+function openDesktopMenu(item) {
+  closeDesktopMenus();
+  item.classList.add("is-open");
+  item.querySelector(".nav-link").setAttribute("aria-expanded", "true");
+}
+desktopItems.forEach(item => {
+  const button = item.querySelector(".nav-link");
+  button.addEventListener("click", () => {
+    if (button.getAttribute("aria-expanded") === "true") closeDesktopMenus();
+    else openDesktopMenu(item);
+  });
+  item.addEventListener("pointerenter", event => {
+    if (event.pointerType === "mouse") openDesktopMenu(item);
+  });
+  item.addEventListener("pointerleave", event => {
+    if (event.pointerType === "mouse" && !item.contains(document.activeElement)) closeDesktopMenus();
+  });
+  item.addEventListener("focusout", event => {
+    if (!item.contains(event.relatedTarget)) closeDesktopMenus();
+  });
+  item.querySelectorAll(".mega-links a").forEach(link => link.addEventListener("click", closeDesktopMenus));
+});
+document.addEventListener("click", event => {
+  if (!event.target.closest(".desktop-nav")) closeDesktopMenus();
+});
+function closeMobileMenu() {
+  if (!toggle || !mobileNav) return;
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-label", "메뉴 열기");
+  mobileNav.classList.remove("open");
+  document.body.classList.remove("menu-open");
+}
+document.querySelectorAll(".mobile-submenu a").forEach(link => link.addEventListener("click", closeMobileMenu));
+document.addEventListener("keydown", event => {
+  if (event.key !== "Escape") return;
+  const openItem = document.querySelector(".nav-item.is-open");
+  if (openItem) openItem.querySelector(".nav-link").focus();
+  closeDesktopMenus();
+  if (mobileNav && mobileNav.classList.contains("open")) {
+    closeMobileMenu();
+    toggle.focus();
+  }
+});
+window.matchMedia("(min-width: 1001px)").addEventListener("change", () => {
+  closeMobileMenu();
+  closeDesktopMenus();
+});
+document.querySelectorAll(".detail-nav a").forEach(link => {
+  link.addEventListener("click", () => {
+    document.querySelectorAll(".detail-nav a").forEach(item => item.removeAttribute("aria-current"));
+    link.setAttribute("aria-current", "location");
+  });
+});
