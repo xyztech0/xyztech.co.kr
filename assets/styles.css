@@ -780,3 +780,31 @@ body[data-view] .cad-business .section{padding:24px 0 48px}
 .hp-business-card figure img{width:100%;max-width:306px;height:auto;aspect-ratio:auto;object-fit:contain}
 .hp-business-card figcaption{align-self:flex-end}
 @media(max-width:700px){.hp-reference-mosaic{gap:6px;padding:8px}.hp-hero-figure figcaption{align-items:start;flex-direction:column;gap:5px}}
+
+/* v35 — movement without distracting from engineering content */
+.hp-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 0%,#254555 0%,#19242d 58%)}
+.hp-hero-grid{position:relative;z-index:1}
+.hp-hero::after{content:"";position:absolute;width:420px;height:420px;right:-140px;top:-220px;border:1px solid #7db8d21c;transform:rotate(45deg);pointer-events:none}
+.hp-slides{background:#e9eef1;padding:24px 20px 20px;min-height:322px;display:grid;align-items:center}
+.hp-slide{text-align:center;grid-area:1/1}
+.hp-hero-figure .hp-slide img{width:100%;max-width:340px;height:230px;aspect-ratio:auto;object-fit:contain;margin-inline:auto}
+.hp-slide p{font-size:15px;color:#304d5d;font-weight:550;margin-top:16px;letter-spacing:-.03em}
+.hp-slide.is-current{animation:hp-photo-in .6s ease both}
+.hp-slider-controls{display:flex;align-items:center;gap:15px;padding:12px 16px;border-top:1px solid #52616c}
+.hp-slide-dots{display:flex}
+.hp-slide-dots button{display:grid;place-items:center;width:32px;height:36px;padding:0;background:transparent;border:0}
+.hp-slide-dots button span{width:6px;height:6px;border-radius:50%;background:#718795;transition:width .2s,background .2s}
+.hp-slide-dots button[aria-pressed="true"] span{width:19px;border-radius:4px;background:#9bd8f4}
+.hp-slide-count{font-size:10px;letter-spacing:.1em;color:#bccbd4}
+.hp-slide-pause{margin-left:auto;min-height:36px;padding:5px 8px;font-size:11px;color:#d1dce2;background:transparent;border:1px solid #607580}
+.hp-motion{transition:opacity .65s ease,transform .65s ease}
+.hp-awaiting{opacity:0;transform:translateY(22px)}
+.hp-business-card{transition:border-color .25s,box-shadow .25s,transform .25s}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+.hp-business-card:hover{transform:translateY(-5px);box-shadow:0 16px 35px #18334512}
+.hp-card-top>span:last-child{transition:transform .25s}
+.hp-business-card:hover .hp-card-top>span:last-child{transform:translate(3px,-3px)}
+}
+@keyframes hp-photo-in{from{opacity:.15;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){.hp-slides{padding:18px 14px;min-height:282px}.hp-hero-figure .hp-slide img{height:205px;max-width:306px}.hp-slider-controls{gap:8px;padding:10px}.hp-slide-dots button{width:28px}.hp-slide-pause{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.hp-slide.is-current{animation:none}.hp-motion,.hp-business-card,.hp-slide-dots button span{transition:none}.hp-awaiting{opacity:1;transform:none}}

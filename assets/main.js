@@ -7,7 +7,7 @@ if (["company.html", "services.html"].includes(legacyFile)) {
 }
 const page = document.body.dataset.page || "home";
 
-const siteVersion = "20260907-34";
+const siteVersion = "20260907-35";
 const navItems = [
   { key: "company", en: "COMPANY", ko: "회사소개", href: `company.html?v=${siteVersion}`, children: [["인사말", `company.html?v=${siteVersion}`], ["인증서", `certifications.html?v=${siteVersion}`], ["조직도", `organization.html?v=${siteVersion}`], ["오시는 길", `location.html?v=${siteVersion}`]] },
   { key: "services", en: "BUSINESS", ko: "사업분야", href: `services.html?v=${siteVersion}`, children: [["지그", `services.html?v=${siteVersion}`], ["자동화설비", `automation.html?v=${siteVersion}`]] },
@@ -250,3 +250,53 @@ document.addEventListener("keydown", event => {
   if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
   else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 });
+
+
+// Home-only restrained motion, with explicit pause and reduced-motion support.
+const homeSlider = document.querySelector(".hp-slider");
+if (homeSlider) {
+  const slides = [...homeSlider.querySelectorAll(".hp-slide")];
+  const dots = [...homeSlider.querySelectorAll("[data-slide]")];
+  const pause = homeSlider.querySelector(".hp-slide-pause");
+  const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let current = 0, timer = null, paused = motionPreference.matches, hovering = false, inView = true;
+  const updateLabel = () => { pause.textContent = paused ? "자동 재생 시작" : "자동 재생 정지"; };
+  function showSlide(index) {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => { slide.hidden = i !== current; slide.classList.toggle("is-current", i === current); });
+    dots.forEach((dot, i) => dot.setAttribute("aria-pressed", String(i === current)));
+    homeSlider.querySelector(".hp-slide-count").textContent = String(current + 1).padStart(2, "0") + " / 04";
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (paused || hovering || !inView || document.hidden || homeSlider.contains(document.activeElement)) return;
+    timer = setTimeout(() => { showSlide(current + 1); schedule(); }, 5000);
+  }
+  homeSlider.querySelector(".hp-slider-controls").hidden = false;
+  dots.forEach((dot, i) => dot.addEventListener("click", () => { showSlide(i); paused = true; updateLabel(); schedule(); }));
+  pause.addEventListener("click", () => { paused = !paused; updateLabel(); schedule(); });
+  homeSlider.addEventListener("pointerenter", () => { hovering = true; schedule(); });
+  homeSlider.addEventListener("pointerleave", () => { hovering = false; schedule(); });
+  homeSlider.addEventListener("focusin", schedule);
+  homeSlider.addEventListener("focusout", () => setTimeout(schedule, 0));
+  document.addEventListener("visibilitychange", schedule);
+  motionPreference.addEventListener("change", () => { paused = motionPreference.matches; updateLabel(); schedule(); });
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(entries => { inView = entries[0].isIntersecting; schedule(); }, { threshold: 0.15 }).observe(homeSlider);
+  }
+  updateLabel();
+  schedule();
+}
+const homeMotionTargets = document.querySelectorAll(".home-premium .hp-section-head, .home-premium .hp-business-card, .home-premium .hp-engineering-intro, .home-premium .hp-steps li, .home-premium .hp-cert-grid article, .home-premium .hp-contact-inner");
+const homeReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+if ("IntersectionObserver" in window && !homeReducedMotion.matches) {
+  const entranceObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.remove("hp-awaiting"); entranceObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0.08 });
+  homeMotionTargets.forEach(el => { el.classList.add("hp-motion", "hp-awaiting"); entranceObserver.observe(el); });
+  homeReducedMotion.addEventListener("change", event => {
+    if (event.matches) { homeMotionTargets.forEach(el => el.classList.remove("hp-awaiting")); entranceObserver.disconnect(); }
+  });
+}
